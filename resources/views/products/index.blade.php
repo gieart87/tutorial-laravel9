@@ -32,6 +32,8 @@
                       <th>ID</th>
                       <th>SKU</th>
                       <th>Name</th>
+                      <th>Brand</th>
+                      <th>Categories</th>
                       <th>Price</th>
                       <th>Stock</th>
                       <th>Actions</th>
@@ -43,6 +45,8 @@
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->sku }}</td>
                         <td>{{ $product->name }}</td>
+                        <td>{{ ($product->brand != null) ? $product->brand->name : '' }}</td>
+                        <td>{{ implode(', ', $product->categories->pluck('name')->toArray()) }}</td>
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->stock }}</td>
                         <td>

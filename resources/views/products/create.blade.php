@@ -46,6 +46,28 @@
                       <input type="text" class="form-control" name="name" value="{{ old('name') }}"  placeholder="Name">
                     </div>
                     <div class="mb-3">
+                      <label class="form-label">Brand</label>
+                      <select name="brand_id" class="form-control">
+                        <option value="">-- Brand --</option>
+                        @foreach ($brands as $brandID => $name)
+                          <option value="{{ $brandID }}" @selected(old('brand_id') == $brandID)>
+                            {{ $name }}
+                          </option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Category</label>
+                      @foreach ($categories as $categoryID => $categoryName)
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="category_ids[]" value="{{ $categoryID }}">
+                          <label class="form-check-label">
+                            {{ $categoryName }}
+                          </label>
+                        </div>
+                      @endforeach
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label">Price</label>
                       <input type="text" class="form-control" name="price" value="{{ old('price') }}"  placeholder="Price">
                     </div>

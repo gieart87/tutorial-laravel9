@@ -28,6 +28,8 @@ class StoreProductRequest extends FormRequest
             'name' => ['required', 'max:100'],
             'price' => ['required', 'numeric', 'min:1'],
             'stock' => ['required', 'numeric', 'min:0'],
+            'brand_id' => ['required'],
+            'category_ids' => ['required', 'array', 'min:2']
         ];
     }
 }

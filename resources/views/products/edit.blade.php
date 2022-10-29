@@ -51,6 +51,31 @@
                       <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}"  placeholder="Price">
                     </div>
                     <div class="mb-3">
+                      <label class="form-label">Brand</label>
+                      <select name="brand_id" class="form-control">
+                        <option value="">-- Brand --</option>
+                        @foreach ($brands as $brandID => $name)
+                          <option value="{{ $brandID }}" @selected(old('brand_id') == $brandID || $product->brand_id == $brandID)>
+                            {{ $name }}
+                          </option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Category</label>
+                      @php
+                        $selectedCategoryIDs = $product->categories->pluck('id')->toArray();
+                      @endphp
+                      @foreach ($categories as $categoryID => $categoryName)
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="category_ids[]" value="{{ $categoryID }}" @checked(in_array($categoryID, $selectedCategoryIDs))>
+                          <label class="form-check-label">
+                            {{ $categoryName }}
+                          </label>
+                        </div>
+                      @endforeach
+                    </div>
+                    <div class="mb-3">
                       <label class="form-label">Stock</label>
                       <input type="text" class="form-control" name="stock" value="{{ old('stock', $product->stock) }}"  placeholder="Stock">
                     </div>
