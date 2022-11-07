@@ -66,7 +66,7 @@
                       </tr>
                     @empty
                       <tr>
-                        <td colspan="6">
+                        <td colspan="8">
                             No record found!
                         </td>
                       </tr>

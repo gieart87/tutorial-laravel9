@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -47,10 +48,20 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $params = $request->validated();
-        if ($product = Product::create($params)) {
+
+        DB::beginTransaction();
+        try {
+            $product = Product::create($params);
             $product->categories()->sync($params['category_ids']);
+            // Commit Transaction : semua proses berjalan sukses
+            DB::commit();
 
             return redirect(route('products.index'))->with('success', 'Added!');
+
+        } catch (Exception $e) {
+            // Rollback: ada proses yang error
+            DB::rollback();
+            return redirect(route('products.index'))->with('error', 'Failed!');
         }
     }
 
